@@ -16,7 +16,7 @@
 
 | 模型名称 | 描述 | 文档链接 |
 |---------|------|---------|
-| Gemma 3 | 基于ollama提供的gemma3:12b模型服务 | [使用说明](models/gemma3/README.md) |
+| Gemma 3 | 基于ollama提供的gemma3:27b模型服务 | [使用说明](models/gemma3/README.md) |
 
 ## 使用方法
 
@@ -51,9 +51,9 @@
 
 - Linux 操作系统（推荐 Ubuntu 或 Debian）
 - Root 权限
-- NVIDIA GPU（推荐，但不是必须）
-- 至少 16GB 内存
-- 至少 30GB 可用磁盘空间
+- NVIDIA GPU（强烈推荐，27B模型需要更多显存）
+- 至少 32GB 内存（27B模型需要更多内存）
+- 至少 60GB 可用磁盘空间（27B模型更大）
 
 ## 快速开始
 
@@ -77,15 +77,21 @@
    - 配置 Ollama 环境
    - 创建服务管理脚本
    - 启动 Ollama 服务
-   - 下载 Gemma3:12b 模型
+   - 下载 Gemma3:27b 模型
 
 ### 使用模型
 
 安装完成后，您可以使用以下命令运行 Gemma3 模型：
 
 ```bash
-ollama run gemma3:12b --verbose
+ollama run gemma3:27b --verbose
 ```
+
+**注意：** 安装脚本会提供多个版本选择：
+- `gemma3:27b` - 完整版本（需要80GB+显存）
+- `gemma3:27b-q4_k_m` - 4位量化版本（推荐，需要40GB+显存）
+- `gemma3:27b-q3_k_m` - 3位量化版本（需要30GB+显存）
+- `gemma3:27b-q2_k` - 2位量化版本（最小，需要20GB+显存）
 
 ## 服务管理
 
@@ -135,7 +141,7 @@ cat /var/log/ollama.log
 运行模型时可以设置自定义参数：
 
 ```bash
-ollama run gemma3:12b --verbose --system "你是一个有用的AI助手"
+ollama run gemma3:27b --verbose --system "你是一个有用的AI助手"
 ```
 
 ### API 调用
@@ -144,7 +150,7 @@ Ollama 提供了 REST API，可以通过以下方式调用：
 
 ```bash
 curl -X POST http://localhost:11434/api/generate -d '{
-  "model": "gemma3:12b",
+  "model": "gemma3:27b",
   "prompt": "你好，请介绍一下自己",
   "stream": false
 }'

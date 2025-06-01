@@ -113,11 +113,27 @@ source /etc/ollama.env
 sleep 5
 
 # 9. 下载Gemma3模型
-print_info "开始下载Gemma3:27b模型..."
+print_info "选择Gemma3-27B模型版本："
+echo "1. gemma3:27b (完整版本，需要80GB+显存)"
+echo "2. gemma3:27b-q4_k_m (4位量化，需要40GB+显存，推荐)"
+echo "3. gemma3:27b-q3_k_m (3位量化，需要30GB+显存)"
+echo "4. gemma3:27b-q2_k (2位量化，需要20GB+显存，最小版本)"
+
+read -p "请选择版本 (1-4，默认选择2): " choice
+
+case $choice in
+    1) MODEL="gemma3:27b" ;;
+    2) MODEL="gemma3:27b-q4_k_m" ;;
+    3) MODEL="gemma3:27b-q3_k_m" ;;
+    4) MODEL="gemma3:27b-q2_k" ;;
+    *) MODEL="gemma3:27b-q4_k_m" ;;
+esac
+
+print_info "开始下载$MODEL模型..."
 print_info "这可能需要一些时间，取决于您的网络速度..."
-ollama pull gemma3:27b
+ollama pull $MODEL
 
 print_info "安装完成！"
 print_info "您可以使用以下命令运行Gemma3模型："
-print_info "ollama run gemma3:27b --verbose"
+print_info "ollama run $MODEL --verbose"
 print_info "使用 'ollama-stop' 停止服务，使用 'ollama-start' 启动服务" 
