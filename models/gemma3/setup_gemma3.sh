@@ -113,11 +113,11 @@ source /etc/ollama.env
 sleep 5
 
 # 9. 下载Gemma3模型
-print_info "开始下载Gemma3:12b模型..."
+print_info "开始下载Gemma3:27b模型..."
 print_info "这可能需要一些时间，取决于您的网络速度..."
-ollama pull gemma3:12b
+ollama pull gemma3:27b
 
 print_info "安装完成！"
 print_info "您可以使用以下命令运行Gemma3模型："
-print_info "ollama run gemma3:12b --verbose"
+print_info "ollama run gemma3:27b --verbose"
 print_info "使用 'ollama-stop' 停止服务，使用 'ollama-start' 启动服务" 
